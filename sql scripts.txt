@@ -1,0 +1,61 @@
+DROP TABLE IF EXISTS customers;
+CREATE TABLE customers (
+	username VARCHAR(20) UNIQUE,
+	pass_word VARCHAR(20),
+	first_name VARCHAR(20),
+	last_name VARCHAR(20),
+	home_number VARCHAR(10),
+	street_name VARCHAR(20),
+	city VARCHAR(20),
+	state VARCHAR(2),
+	zipcode INTEGER,
+	account_number SERIAL PRIMARY KEY
+)
+
+INSERT INTO customers (username, pass_word, first_name, last_name, home_number, street_name, city, state, zipcode, account_number) 
+VALUES ('guest619', 'Lucky123!','Jojo','Clenton','444','Menlo','Bakersfield','CA', 92105, 1)
+
+INSERT INTO customers (username, pass_word, first_name, last_name, home_number, street_name, city, state, zipcode, account_number) 
+VALUES ('user2', 'yes123','Enrique','McCool','314','kapti','Los Angeles','CA', 99701, 2)
+
+DROP TABLE IF EXISTS accounts;
+CREATE TABLE accounts (
+	account_number SERIAL REFERENCES customers(account_number),
+	account_balance NUMERIC(12,2) DEFAULT 0,
+	account_active BOOLEAN DEFAULT (true)
+)
+
+
+INSERT INTO accounts (account_number,account_balance, account_active) 
+VALUES (1,100.50, TRUE)
+
+INSERT INTO accounts (account_number,account_balance, account_active) 
+VALUES (2,500.00, TRUE)
+
+SELECT * FROM customers LEFT JOIN accounts ON customers.account_number = accounts.account_number;
+
+
+
+DROP TABLE IF EXISTS employees_admin;
+CREATE TABLE employees_admin (
+username VARCHAR(20) PRIMARY KEY,
+pass_word VARCHAR(30),
+job_role VARCHAR(30),
+first_name VARCHAR(20),
+last_name VARCHAR(20),
+approval_authority BOOLEAN DEFAULT (true),
+account_authority BOOLEAN DEFAULT (false)
+);
+
+INSERT INTO employees_admin (username, pass_word, job_role, first_name, last_name, approval_authority, account_authority)
+VALUES ('Jarib619', 'lucky123!', 'employee', 'Jarib', 'Rivas', TRUE, FALSE)
+
+INSERT INTO employees_admin (username, pass_word, job_role, first_name, last_name, approval_authority, account_authority)
+VALUES ('TimRevature', 'yesboss!', 'admin', 'Tim', 'Hayden', TRUE, TRUE)
+
+
+
+	
+	
+
+

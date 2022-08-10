@@ -14,27 +14,29 @@ public class CustomerController {
 	private Scanner scan = new Scanner(System.in);
 
 	
-	public void existingCustomer() {
+	public boolean existingCustomer() {
 		System.out.println("Welcome back sir. To verify it's you, we will first need your username.");
 		String username = scan.nextLine();
 		System.out.println("Now please provide your password.");
 		String password = scan.nextLine();
-
-		cs.getSingleCustomer(username, password);
+				
+		Customers cust = cs.getSingleCustomer(username, password);
+		if (cust!=null) {
+			
+			System.out.println("You have successfully logged in.");
+			System.out.println("Here is your info: " + cust);
 		
-		if (cs!=null) {
-		System.out.println("You have successfully logged in.");
-		Customers customer = cs.getSingleCustomer(username, password);
-		System.out.println("Here is your info" + customer);
-		AccountController ac = new AccountController();
-		ac.accountConfigurations();
+		return true;
 		}
 		else {
-			System.out.println("Sorry, invalid responses. You will be directed back to main menu.");
+			System.out.println("Sorry, invalid credentials. You will be directed back to main menu.");
 			Greetings greet = new Greetings();
 			greet.greeting();
+			return false;
 		}
 	}
+	
+	
 
 	public void createCustomerMenu() {
 		System.out.println("Great! Thank you for registering. Please fill out the following information for the application:"
@@ -84,14 +86,15 @@ public class CustomerController {
 		
 		//creates new customer into database
 		CustomerController cc = new CustomerController();
-		cc.createCustomerMenu();
+		//cc.createCustomerMenu();
+		cc.existingCustomer();
 		
 		
 		
 		//Only Admin calls this.
-		CustomerDAO cDao = new CustomerDAOImpl();
-		List<Customers> list = cDao.getAllCustomers();
-		System.out.println(list);
+	//	CustomerDAO cDao = new CustomerDAOImpl();
+	//	List<Customers> list = cDao.getAllCustomers();
+	//	System.out.println(list);
 		
 		
 	}

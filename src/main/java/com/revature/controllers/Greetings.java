@@ -1,9 +1,15 @@
 package com.revature.controllers;
 
+import java.util.List;
 import java.util.Scanner;
+
+import com.revature.daos.CustomerDAO;
+import com.revature.daos.CustomerDAOImpl;
+import com.revature.models.Customers;
 
 public class Greetings {
 
+	private CustomerController cust = new CustomerController();
 	private Scanner scan = new Scanner(System.in);
 
 	public void greeting() {
@@ -14,7 +20,7 @@ public class Greetings {
 			+ "\n3. an admin"
 			+ "\n4. a new customer and would like to apply for a bank account"
 			+ "\n5. exit the premises");
-	CustomerController cust = new CustomerController();
+	
 	int userInput = 0;
 	while(userInput!=5) {	
 		
@@ -54,8 +60,12 @@ public class Greetings {
 	}
 	
 	public static void main(String[] args) {
+		
 		Greetings greet = new Greetings();
 		greet.greeting();
+		
+	
+		
 	
 	}
 
