@@ -24,10 +24,8 @@ public class AccountDAOImpl implements AccountDAO {
 			if (result.next()) {
 				Accounts account = new Accounts();
 				account.setAccountNumber(result.getInt("account_number"));
-				account.setUsername(result.getString("username")); // username is similar as shown on SQL
-				account.setPassword(result.getString("pass_word"));
 				account.setBalance(result.getDouble("account_balance"));
-				account.setActive(result.getBoolean("account_status"));
+				account.setActive(result.getBoolean("account_active"));
 				return account;
 			}
 			

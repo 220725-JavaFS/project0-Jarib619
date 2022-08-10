@@ -8,8 +8,11 @@ import com.revature.models.Customers;
 public interface CustomerDAO {
 
 	//undefined at the moment
-	public Customers getCustomersByID(int ID);
+	//public Customers getCustomersByID(int ID);
 	
 	List<Customers> getAllCustomers();
 	
+	public Customers getCustomerByCredential(String username, String password);
+	
+	public void registerCustomer(Customers customer);
 }

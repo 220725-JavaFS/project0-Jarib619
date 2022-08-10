@@ -1,6 +1,7 @@
 package com.revature.services;
 
 import com.revature.models.Accounts;
+import com.revature.models.Customers;
 
 public class AccountServices {
 	
@@ -24,32 +25,23 @@ public class AccountServices {
 		account.setBalance(newBalance);
 		return "You have deposite $"+amount+". Your new balance is $"+newBalance;
 	}
-			
+	
 	/*
 	public String transfer(double amount) {
 		
-		Account account = new Account();
-		double newBalance = account.getBalance() - amount;
+		Accounts acc = new Accounts();
+		double newBalance = acc.getBalance() - amount;
 		
 		if (newBalance > 0) {
-			account.setBalance(newBalance);
+			acc.setBalance(newBalance);
 			/// add $ to the transferring account
 		}
-		
-	*/
+		*/
 	
-	public void encryption() {
-		
-		Accounts account = new Accounts();
-		
-		char[] charay = account.getPassword().toCharArray();
-		for (int i = 0; i < account.getPassword().length(); i++) {
-			charay[i] = (char) (charay[i] + 20);
-		}
-		String newPassword = new String(charay);
-		System.out.println(newPassword);
+	
+	public static void main(String[] args) {
+		AccountServices.encryption();
 		
 	}
-	
 
 }

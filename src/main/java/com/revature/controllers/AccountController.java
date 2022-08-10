@@ -8,21 +8,12 @@ import com.revature.services.AccountServices;
 public class AccountController {
 
 	private Scanner scan = new Scanner(System.in);
-	
-	public void customerService() {
-		System.out.println("Is there anything we can do for you? (yes or no)");
-		if(scan.nextLine().toLowerCase().trim().equals("yes")) {
-			accountConfigurations();
-		}
-		else {
-			System.out.println("Have a wonderful day.");
-		}
-	}
+
 
 	public void accountConfigurations() {
 		
-		AccountServices account = new AccountServices();
-		Accounts acc = new Accounts();
+		AccountServices accServ = new AccountServices();
+		Accounts account = new Accounts();
 
 		boolean bool = true;
 		while (bool) {
@@ -40,7 +31,7 @@ public class AccountController {
 					amount = Double.parseDouble(scan.nextLine());
 					
 					if (amount > 0) {
-						System.out.println(account.withdraw(amount));
+						System.out.println(accServ.withdraw(amount));
 						bool2 = false;
 					}
 					else {
@@ -54,7 +45,7 @@ public class AccountController {
 					System.out.println("How much would you like to deposit?");
 					amount = Double.parseDouble(scan.nextLine());
 					if (amount > 0) {
-						account.deposit(amount);
+						accServ.deposit(amount);
 						bool2 = false;
 					} else {
 						System.out.println("Invalid input. Please try again.");
@@ -71,10 +62,11 @@ public class AccountController {
 			//break;
 				
 			case 4:
-				System.out.println("Your account balance is: $" + acc.getBalance());
+				System.out.println("Your account balance is: $" + account.getBalance());
 				break;
 				
 			case 0:
+				System.out.println("You are now exiting. Have a wonderful day.");
 				bool = false;
 				break;
 				
@@ -83,5 +75,11 @@ public class AccountController {
 			}
 		}
 	}
+	
+	public static void main (String[] args) {
+		AccountController ac = new AccountController();
+		ac.accountConfigurations();
+	}
+	
 }
 

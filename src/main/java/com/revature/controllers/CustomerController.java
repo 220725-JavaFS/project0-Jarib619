@@ -1,37 +1,100 @@
 package com.revature.controllers;
 
+import java.util.List;
+import java.util.Scanner;
+
+import com.revature.daos.CustomerDAO;
+import com.revature.daos.CustomerDAOImpl;
+import com.revature.models.Customers;
 import com.revature.services.CustomerServices;
 
 public class CustomerController {
 	
-	private CustomerServices customerService = new CustomerServices();
+	private CustomerServices cs = new CustomerServices();
+	private Scanner scan = new Scanner(System.in);
+
 	
-	public void customerMenu() {
-		System.out.println("What would you like to do concerning the Customers?"
-				+"\n1. Customer //
-				+ "\n 2. Employee"
-				+ "\n 3. Admin");
+	public void existingCustomer() {
+		System.out.println("Welcome back sir. To verify it's you, we will first need your username.");
+		String username = scan.nextLine();
+		System.out.println("Now please provide your password.");
+		String password = scan.nextLine();
+
+		cs.getSingleCustomer(username, password);
 		
-		seeCustomerInfo();
+		if (cs!=null) {
+		System.out.println("You have successfully logged in.");
+		Customers customer = cs.getSingleCustomer(username, password);
+		System.out.println("Here is your info" + customer);
+		AccountController ac = new AccountController();
+		ac.accountConfigurations();
+		}
+		else {
+			System.out.println("Sorry, invalid responses. You will be directed back to main menu.");
+			Greetings greet = new Greetings();
+			greet.greeting();
+		}
+	}
+
+	public void createCustomerMenu() {
+		System.out.println("Great! Thank you for registering. Please fill out the following information for the application:"
+				+ "\nWhat username would you like for the account.");
+		
+		Customers customer = new Customers();
+		customer.setUsername(scan.nextLine());
+		
+		System.out.println("Please provide a secure password.");
+		String encryptedPassword = CustomerServices.encryption(scan.nextLine());
+		customer.setPassword(encryptedPassword);
+		
+		
+		System.out.println("What is your first name?");
+		customer.setFirstName(scan.nextLine());
+		
+		System.out.println("What is your last name?");
+		customer.setLastName(scan.nextLine());
+		
+		System.out.println("What is your home number?");
+		customer.setHomeNumber(scan.nextLine());
+		
+		System.out.println("What is your street name?");
+		customer.setStreetName(scan.nextLine());
+		
+		System.out.println("What city do you live in?");
+		customer.setCity(scan.nextLine());
+		
+		System.out.println("What state do you live in?");
+		customer.setState(scan.nextLine());
+		
+		System.out.println("What's your area's zip code?");
+		customer.setZipcode(scan.nextInt());
+		
+		cs.createCustomer(customer);
 	}
 	
-	public void seeCustomerInfo() {
-		System.out.println("Are you a new user or existing? 1 for new, 2 for existing");
-		//String answer = scan.nextLine(); 
+
+	
+	
+	public static void main(String[] args) {
+		/*EmployeeController ec = new EmployeeController();
+		ec.employeeMenu();
+		Customers cust = new Customers();
+		System.out.println(cust);
+		*/
 		
-		//if ()
-			//get all customers info
+		//creates new customer into database
+		CustomerController cc = new CustomerController();
+		cc.createCustomerMenu();
 		
-		//else if....
 		
-		//else {
-		//int id = 0
-		//try {id = Integer.parseInt(answer)} catch (NumberFormatException e){
-		// System.out.println("Not valid answer, try again"); 
-		//continue;}
 		
-		//Customers customer = customerServices.getSingleCustomer(id);
-		//System.out.println("Here is your customer" + customer);
+		//Only Admin calls this.
+		CustomerDAO cDao = new CustomerDAOImpl();
+		List<Customers> list = cDao.getAllCustomers();
+		System.out.println(list);
+		
+		
 	}
-		
+	
 }
+
