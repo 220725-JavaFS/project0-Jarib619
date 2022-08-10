@@ -1,18 +1,13 @@
 package com.revature.controllers;
 
-import java.util.List;
 import java.util.Scanner;
-
-import com.revature.daos.CustomerDAO;
-import com.revature.daos.CustomerDAOImpl;
-import com.revature.models.Customers;
 
 public class Greetings {
 
 	private CustomerController cust = new CustomerController();
 	private Scanner scan = new Scanner(System.in);
 
-	public void greeting() {
+	public boolean greeting() {
 		
 	System.out.println("Hello, welcome to Bank of Jarib. Are you:?"
 			+ "\n1. an existing customer"
@@ -21,9 +16,10 @@ public class Greetings {
 			+ "\n4. a new customer and would like to apply for a bank account"
 			+ "\n5. exit the premises");
 	
+	boolean methodBool = true;
 	int userInput = 0;
-	while(userInput!=5) {	
-		
+	boolean bool = true;	
+	while(bool) {
 		boolean bool1 = true;
 		while(bool1) {
 			try{
@@ -36,37 +32,42 @@ public class Greetings {
 		}
 		switch (userInput){
 			case 1: 
-				cust.existingCustomer();
-				break;
+				if (cust.existingCustomer()) {
+					//System.out.println
+					//cust.viewAllAccounts();
+					bool = false;
+				}else {
+					bool=true;
+				}
+					break;
 			case 2:
-				EmployeeController empl = new EmployeeController();
-				empl.employeeMenu();
-				break;
+					if(cust.existingEmployee()) {
+						bool=false;
+					} else {
+						bool=true;
+					}
+					break;
 			case 3:
-				AdminController admin = new AdminController();
-				admin.adminMenu();
-				break;
+					if(cust.existingEmployee()) {
+						bool=false;
+					}
+					else {
+						bool=true;
+					}  
+					break;
 			case 4:
-				cust.createCustomerMenu();; 
-				break;
+					cust.createCustomerMenu();
+					bool=false;
+					break;
 			case 5:
-				System.out.println("Have a nice day!"); 
-				break;
+					System.out.println("Have a nice day!"); 
+					bool=false;
+					return false;
 			default:
-				System.out.println("Please insert a valid input.");
-				continue;
-			}
-		}
-	}
-	
-	public static void main(String[] args) {
-		
-		Greetings greet = new Greetings();
-		greet.greeting();
-		
-	
-		
-	
-	}
+					System.out.println("Please insert a valid input.");
+					continue;
+				}
+		}return methodBool;
+}
 
 }

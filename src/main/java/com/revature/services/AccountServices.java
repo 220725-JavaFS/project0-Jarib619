@@ -37,11 +37,5 @@ public class AccountServices {
 			/// add $ to the transferring account
 		}
 		*/
-	
-	
-	public static void main(String[] args) {
-		AccountServices.encryption();
-		
-	}
 
 }

@@ -1,8 +1,12 @@
 package com.revature;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.revature.controllers.*;
+import com.revature.daos.CustomerDAO;
+import com.revature.daos.CustomerDAOImpl;
+import com.revature.models.Customers;
 import com.revature.services.AccountServices;
 
 public class Driver {
@@ -11,30 +15,27 @@ public class Driver {
 	public static void main(String[] args) {
 		
 		Scanner scan = new Scanner(System.in);
-		AccountController ac = new AccountController();
+		CustomerController custCom = new CustomerController();
 		
-		System.out.println("Hello, welcome to Bank of Jarib. Are you:?"
-				+ "\n1. an existing customer"
-				+ "\n2. an employee"
-				+ "\n3. an admin"
-				+ "\n4. a new customer and would like to apply for a bank account"
-				+ "\n0. none of the above");
+		Greetings greet = new Greetings();
+		if(greet.greeting()) {
+		custCom.accountConfigurations();
+		}
 		
-		String input = scan.nextLine();
-		
-		if(input.toLowerCase().trim().equals("yes")) {
-			rc.register();
-			ac.customerService();
+		//System.out.println("Admin log in susccessfully. Would you like to view all accounts");
+		//if (scan.nextLine().toLowerCase().trim().equals("yes")) {
 			
-		}
-		else {
-			System.out.println("Have a nice day.");
-		}
+		//CustomerDAO cDao = new CustomerDAOImpl();
+		//List<Customers> list = cDao.getAllCustomers();
+		//System.out.println(list);
 		
+		//}
+		
+		//CustomerDAO cDao = new CustomerDAOImpl();
+		//cDao.getBalance("user2");
 	
-	
 		
-		
+		scan.close();
 	}
 	
 }

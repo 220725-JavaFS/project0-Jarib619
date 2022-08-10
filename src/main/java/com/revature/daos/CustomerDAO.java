@@ -15,4 +15,7 @@ public interface CustomerDAO {
 	public Customers getCustomerByCredential(String username, String password);
 	
 	public void registerCustomer(Customers customer);
+
+	public double getBalance(String username);
+
 }

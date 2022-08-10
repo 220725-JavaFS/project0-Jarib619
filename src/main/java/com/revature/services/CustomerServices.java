@@ -22,6 +22,11 @@ public class CustomerServices {
 		customerDao.registerCustomer(customer);
 	}
 	
+	public double getBalances(String username) {
+		return customerDao.getBalance(username);
+	}
+	
+	
 	public static String encryption(String password) {
 		
 		String tempPassword = password;
@@ -34,6 +39,5 @@ public class CustomerServices {
 		String encryptedPassword = new String(charay);
 		return encryptedPassword;
 	}
-
-
+	
 }

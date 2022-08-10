@@ -94,6 +94,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 					customer.setAccountNumber(account); // set the account into customer
 				}
 				
+				
 				return customer;
 						
 			}
@@ -104,6 +105,9 @@ public class CustomerDAOImpl implements CustomerDAO {
 		
 		return null;
 	}	
+	
+
+	
 	
 	@Override
 	public void registerCustomer(Customers customer) {
@@ -137,21 +141,58 @@ public class CustomerDAOImpl implements CustomerDAO {
 		
 	}
 	
-	
-	public static void main(String[] args) {
-		CustomerDAO cDao = new CustomerDAOImpl();
-		
-		List<Customers> list = cDao.getAllCustomers();
-		System.out.println(list);
-		for (Customers c: list) {
-		    if (c.getUsername().equals("user2")){
-		    	Customers cust1 = c;
-		    	System.out.println(cust1);
-		    	//have method that returns cust 1. look at previous accountDAO example that returns account.
-		        break;
-		    }
+	@Override
+	public double getBalance(String username) { // gets balance of user
+		try(Connection conn = ConnectionUtil.getConnection()){
+							
+			String sql = "SELECT * FROM customers LEFT JOIN accounts ON customers.account_number = accounts.account_number;";		
+			
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery(sql);
+			double balance = 0;
+			if(result.next()) {
+			System.out.println(result.getDouble("account_balance"));
+			balance = result.getDouble("account_balance");
+			}
+			return balance;
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return 0;
 		}
+	}
+	
+	
+
+		
+	
+		/*public static void main(String[] args) {
+		CustomerDAO cDao = new CustomerDAOImpl();
+		cDao.getBalance("user2");
 		//System.out.println(cDao.getCustomerByCredential("user2", "yes123"));
 	}
+	}
 
+	
+	/*public void updateBalance(String username, double balance);
+		try(Connection conn = ConnectionUtil.getConnection()){
+			
+			String sql = "UPDATE account_balance FROM customers LEFT JOIN accounts ON customers.account_number = accounts.account_number;";		
+			
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery(sql);
+			double balance = 0;
+			if(result.next()) {
+				System.out.println(result.getDouble("account_balance"));
+				balance = result.getDouble("account_balance");
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+	}
+		@Override
+		public double updateBalance(String username) {
+			// TODO Auto-generated method stub
+			return 0;
+		}*/
+	
 }
