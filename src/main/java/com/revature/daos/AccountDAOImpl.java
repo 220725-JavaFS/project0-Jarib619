@@ -10,6 +10,7 @@ import com.revature.utils.ConnectionUtil;
 
 public class AccountDAOImpl implements AccountDAO {
 
+	
 	@Override
 	public Accounts getAccountByNum(int number) {
 		try(Connection conn = ConnectionUtil.getConnection()){
@@ -23,7 +24,7 @@ public class AccountDAOImpl implements AccountDAO {
 			
 			if (result.next()) {
 				Accounts account = new Accounts();
-				account.setAccountNumber(result.getInt("account_number"));
+				account.setAccountNumbers(result.getInt("account_balance"));
 				account.setBalance(result.getDouble("account_balance"));
 				account.setActive(result.getBoolean("account_active"));
 				return account;

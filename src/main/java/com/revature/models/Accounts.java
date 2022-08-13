@@ -6,13 +6,13 @@ public class Accounts {
 	
 
 	//private List <Double> customerAccounts = new ArrayList<>();
-	private int accountNumber;
+	private int accountNumbers;
 	private double balance;
 	private boolean active;
 	
 	public Accounts(int accountNumber, double balance, boolean active) {
 		super();
-		this.accountNumber = accountNumber;
+		this.accountNumbers = accountNumber;
 		this.balance = balance;
 		this.active = active;
 	}
@@ -23,7 +23,7 @@ public class Accounts {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(accountNumber, active, balance);
+		return Objects.hash(accountNumbers, active, balance);
 	}
 
 	@Override
@@ -35,21 +35,21 @@ public class Accounts {
 		if (getClass() != obj.getClass())
 			return false;
 		Accounts other = (Accounts) obj;
-		return accountNumber == other.accountNumber && active == other.active
+		return accountNumbers == other.accountNumbers && active == other.active
 				&& Double.doubleToLongBits(balance) == Double.doubleToLongBits(other.balance);
 	}
 
 	@Override
 	public String toString() {
-		return "Accounts [accountNumber=" + accountNumber + ", balance=" + balance + ", active=" + active + "]";
+		return "Accounts [accountNumbers=" + accountNumbers + ", balance=" + balance + ", active=" + active + "]";
 	}
 
-	public int getAccountNumber() {
-		return accountNumber;
+	public int getAccountNumbers() {
+		return accountNumbers;
 	}
 
-	public void setAccountNumber(int accountNumber) {
-		this.accountNumber = accountNumber;
+	public void setAccountNumbers(int accountNumber) {
+		this.accountNumbers = accountNumber;
 	}
 
 	public double getBalance() {

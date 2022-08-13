@@ -44,7 +44,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 				int accountNumber = result.getInt("account_number");
 				if(accountNumber!=0) { // checks if there's an accountNumber in the database
 					Accounts account = new Accounts();
-					account.setAccountNumber(accountNumber);
+					account.setAccountNumbers(accountNumber);
 					account.setBalance(result.getDouble("account_balance"));
 					account.setActive(result.getBoolean("account_active"));
 					customer.setAccountNumber(account); // set the account into customer
@@ -129,9 +129,9 @@ public class CustomerDAOImpl implements CustomerDAO {
 			statement.setString(++count, customer.getState());
 			statement.setInt(++count, customer.getZipcode());
 			if(customer.getAccountNumber()!=null) {
-				statement.setInt(++count, customer.getAccountNumber().getAccountNumber());
+				statement.setInt(++count, customer.getAccountNumber().getAccountNumbers());
 			}else {
-				statement.setInt(++count, 3);
+				statement.setInt(++count, 0);
 			}
 			statement.execute();
 			
@@ -161,11 +161,12 @@ public class CustomerDAOImpl implements CustomerDAO {
 		}
 	}
 	
-	
+	// copy and paste this one on dbeaver for updating balance
+	//UPDATE accounts SET customers.account_number = accounts.account_number, accounts.account_balance = 55 FROM customers LEFT JOIN accounts ON customers.account_number WHERE customer.account_number = accounts.account_number 
 
 		
-	
-		/*public static void main(String[] args) {
+	/*
+		public static void main(String[] args) {
 		CustomerDAO cDao = new CustomerDAOImpl();
 		cDao.getBalance("user2");
 		//System.out.println(cDao.getCustomerByCredential("user2", "yes123"));
@@ -173,7 +174,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	}
 
 	
-	/*public void updateBalance(String username, double balance);
+	public void updateBalance(String username, double balance);
 		try(Connection conn = ConnectionUtil.getConnection()){
 			
 			String sql = "UPDATE account_balance FROM customers LEFT JOIN accounts ON customers.account_number = accounts.account_number;";		
@@ -189,10 +190,6 @@ public class CustomerDAOImpl implements CustomerDAO {
 		}catch(SQLException e) {
 			e.printStackTrace();
 	}
-		@Override
-		public double updateBalance(String username) {
-			// TODO Auto-generated method stub
-			return 0;
-		}*/
+		*/
 	
 }

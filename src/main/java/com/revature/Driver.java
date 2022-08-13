@@ -17,19 +17,36 @@ public class Driver {
 		Scanner scan = new Scanner(System.in);
 		CustomerController custCom = new CustomerController();
 		
-		Greetings greet = new Greetings();
-		if(greet.greeting()) {
-		custCom.accountConfigurations();
+		String looper = "";
+		while (looper!="exit") {
+			custCom.greeting();
+			System.out.println("Would you to continue? type 'no' to exit");
+			looper=scan.nextLine().toLowerCase().trim();
 		}
 		
-		//System.out.println("Admin log in susccessfully. Would you like to view all accounts");
-		//if (scan.nextLine().toLowerCase().trim().equals("yes")) {
-			
-		//CustomerDAO cDao = new CustomerDAOImpl();
-		//List<Customers> list = cDao.getAllCustomers();
-		//System.out.println(list);
 		
-		//}
+		
+		
+		
+		
+		
+		
+		
+		//custCom.accountConfigurations();
+		
+
+
+		/*
+		System.out.println("Admin is now in control. Would you like to view all accounts");
+		if (scan.nextLine().toLowerCase().trim().equals("yes")) {
+			
+		CustomerDAO cDao = new CustomerDAOImpl();
+		List<Customers> list = cDao.getAllCustomers();
+		System.out.println(list);
+		
+		}
+		*/
+		
 		
 		//CustomerDAO cDao = new CustomerDAOImpl();
 		//cDao.getBalance("user2");

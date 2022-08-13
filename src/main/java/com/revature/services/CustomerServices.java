@@ -27,7 +27,7 @@ public class CustomerServices {
 	}
 	
 	
-	public static String encryption(String password) {
+	/*public static String encryption(String password) {
 		
 		String tempPassword = password;
 		
@@ -38,6 +38,6 @@ public class CustomerServices {
 		
 		String encryptedPassword = new String(charay);
 		return encryptedPassword;
-	}
+	}*/
 	
 }

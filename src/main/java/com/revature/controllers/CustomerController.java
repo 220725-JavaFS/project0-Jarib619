@@ -18,6 +18,68 @@ public class CustomerController {
 	private CustomerServices cs = new CustomerServices();
 	private EmployeeServices es = new EmployeeServices();
 	private Scanner scan = new Scanner(System.in);
+	
+	public boolean greeting() {
+		
+		System.out.println("Hello, welcome to Bank of Jarib. Are you:?"
+				+ "\n1. an existing customer"
+				+ "\n2. an employee"
+				+ "\n3. an admin"
+				+ "\n4. a new customer and would like to apply for a bank account"
+				+ "\n5. exit the premises");
+		
+		boolean methodBool = true;
+		int userInput = 0;
+		boolean bool = true;	
+		while(bool) {
+			boolean bool1 = true;
+			while(bool1) {
+				try{
+					userInput = Integer.parseInt(scan.nextLine());
+					bool1 = false;
+				}
+				catch (Exception e){
+					System.out.println("Invalid response, please insert one of the following numbers.");
+				}
+			}
+			switch (userInput){
+				case 1: 
+					if (existingCustomer()) {
+						bool = false;
+					}else {
+						bool=true;
+					}
+						break;
+				case 2:
+						if(existingEmployee()) {
+							bool=false;
+						} else {
+							bool=true;
+						}
+						break;
+				case 3:
+						if(existingEmployee()) {
+							bool=false;
+						}
+						else {
+							bool=true;
+						}  
+						break;
+				case 4:
+						createCustomerMenu();
+						bool=false;
+						break;
+				case 5:
+						System.out.println("Have a nice day!"); 
+						bool=false;
+						return false;
+				default:
+						System.out.println("Please insert a valid input.");
+						continue;
+					}
+			}return methodBool;
+	}
+
 
 	
 	public boolean existingCustomer() {
@@ -31,14 +93,12 @@ public class CustomerController {
 			
 			System.out.println("You have successfully logged in.");
 			System.out.println("Here is your info: " + cust);
-			this.username = username;
 		
 		return true;
 		}
 		else {
 			System.out.println("Sorry, invalid credentials. You will be directed back to main menu.");
-			Greetings greet = new Greetings();
-			greet.greeting();
+			greeting();
 			return false;
 		}
 	}
@@ -48,20 +108,18 @@ public class CustomerController {
 		String username = scan.nextLine();
 		System.out.println("Now please provide your password.");
 		String password = scan.nextLine();
-				
+		
 		Employees empl = es.getEmployeeByCredential(username, password);
 		if (empl!=null) {
 			
 			System.out.println("You have successfully logged in.");
 			System.out.println("Here is your info: " + empl);
-			this.username = username;
 		
 		return true;
 		}
 		else {
 			System.out.println("Sorry, invalid credentials. You will be directed back to main menu.");
-			Greetings greet = new Greetings();
-			greet.greeting();
+			greeting();
 			return false;
 		}
 	}
@@ -74,9 +132,7 @@ public class CustomerController {
 		customer.setUsername(scan.nextLine());
 		
 		System.out.println("Please provide a secure password.");
-		String encryptedPassword = CustomerServices.encryption(scan.nextLine());
-		customer.setPassword(encryptedPassword);
-		
+		customer.setPassword(scan.nextLine());
 		
 		System.out.println("What is your first name?");
 		customer.setFirstName(scan.nextLine());
@@ -101,12 +157,10 @@ public class CustomerController {
 		
 		cs.createCustomer(customer);
 		
-		System.out.println("Your info has been pushed to the database and is pending for approval.");
 	}
 	
 
-	public void accountConfigurations() {
-		Accounts account = new Accounts();
+	public void accountConfigurations(Accounts account) {
 		AccountServices accServ = new AccountServices();
 		double acc = cs.getBalances(username);
 		
@@ -115,7 +169,7 @@ public class CustomerController {
 		boolean bool = true;
 		while (bool) {
 			System.out.println(
-					"What can we help with? Select 1 for withdraw, 2 for deposite, 3 for transfer, 4 for balance or 0 to exit.");
+					"What can we help with? Select 1 for withdraw, 2 for deposite, 3 for balance or 0 to exit.");
 			int input = Integer.parseInt(scan.nextLine());
 			double amount = 0;
 
@@ -149,16 +203,7 @@ public class CustomerController {
 					}
 				}
 				break;
-				
 			case 3:
-				break;
-				//System.out.println("Please insert account number to transfer funds to."); 
-				//1) check if account is existing on AccountDAO or AccountRepo
-				//System.out.println("Please enter an amount you would like to transfer.");
-				//2) create transfer method on AccountServices
-			//break;
-				
-			case 4:
 				System.out.println("Your account balance is: $" + account.getBalance());
 				break;
 				
