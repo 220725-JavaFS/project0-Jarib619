@@ -12,7 +12,7 @@ public class ConnectionUtil {
 	
 	public static Connection getConnection() throws SQLException {
 		//checking for any existing connections, if so, returns the connection
-		if(connection!=null && connection.isClosed()) {
+		if(connection!=null && !connection.isClosed()) {
 			return connection;
 		} else {
 			//registering the Driver for this project connect
@@ -33,15 +33,6 @@ public class ConnectionUtil {
 		
 		return connection;
 		
-		}
-	}
-	
-	public static void main(String[] args) {
-		try {
-			getConnection();
-			System.out.println("Connection Successful");
-		}catch (SQLException e){
-			e.printStackTrace();
 		}
 	}
 	

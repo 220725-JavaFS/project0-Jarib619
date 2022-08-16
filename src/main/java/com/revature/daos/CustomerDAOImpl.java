@@ -106,15 +106,14 @@ public class CustomerDAOImpl implements CustomerDAO {
 		return null;
 	}	
 	
-
 	
 	
 	@Override
 	public void registerCustomer(Customers customer) {
 		try(Connection conn = ConnectionUtil.getConnection()){
 			String sql = "INSERT INTO customers (username, pass_word, first_name, last_name, home_number, street_name, "
-					+ "city, state, zipcode, account_number)"
-					+ "	VALUES (?, ?, ?, ?, ?, ?, ?,?,?,?);";
+					+ "city, state, zipcode)"
+					+ "	VALUES (?, ?, ?, ?, ?, ?, ?,?,?);";
 			
 			PreparedStatement statement = conn.prepareStatement(sql);
 			
@@ -127,17 +126,16 @@ public class CustomerDAOImpl implements CustomerDAO {
 			statement.setString(++count, customer.getStreetName());
 			statement.setString(++count, customer.getCity());
 			statement.setString(++count, customer.getState());
-			statement.setInt(++count, customer.getZipcode());
-			if(customer.getAccountNumber()!=null) {
-				statement.setInt(++count, customer.getAccountNumber().getAccountNumbers());
-			}else {
-				statement.setInt(++count, 0);
-			}
-			statement.execute();
+			statement.setInt(++count, customer.getZipcode());		
+			
+			statement.execute();	
+			
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
+		
+		//return customer;
 		
 	}
 	

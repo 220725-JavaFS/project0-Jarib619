@@ -17,12 +17,11 @@ public class Driver {
 		Scanner scan = new Scanner(System.in);
 		CustomerController custCom = new CustomerController();
 		
-		String looper = "";
-		while (looper!="exit") {
-			custCom.greeting();
-			System.out.println("Would you to continue? type 'no' to exit");
-			looper=scan.nextLine().toLowerCase().trim();
-		}
+		System.out.println("-------------Welcome to Bank of Jarib--------------");
+		custCom.greeting();
+			
+			
+		
 		
 		
 		
